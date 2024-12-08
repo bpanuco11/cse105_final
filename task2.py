@@ -8,13 +8,13 @@ def a_tm_to_halt_tm(M, w):
     # Run M on input w
     if M == "M" and w == "1":
         # M accepts "1", so M' halts
-        return "M accepts w = " + w + " and M' halts on w = " + w
+        return 1
     else:
         # M does not accept w, so M' does not halt
-        return "M rejects w = " + w + " and M' does not halt on w = " + w
+        return -1
 
 
-def print_colored_result(result, is_positive):
+def print_colored_result(result, w, is_positive):
     # ANSI escape sequences for colors
     GREEN = "\033[32m"
     RED = "\033[31m"
@@ -22,9 +22,9 @@ def print_colored_result(result, is_positive):
 
     # Print colored result based on whether it's positive or negative
     if is_positive:
-        print(f"{GREEN}{result}{RESET}")
+        print(f"M accepts w and M' halts on w = {w}. RESULT: {GREEN}{result}{RESET}")
     else:
-        print(f"{RED}{result}{RESET}")
+        print(f"M rejects w and M' does not halt on w = {w}. RESULT: {RED}{result}{RESET}")
 
 
 def test_mapping_reduction():
@@ -33,13 +33,13 @@ def test_mapping_reduction():
     w = "1"  
     result = a_tm_to_halt_tm(M, w)
     print("\nPositive instance result:")
-    print_colored_result(result, is_positive=True)
+    print_colored_result(result, w, is_positive=True)
 
     # Example 2: Negative instance (M does not accept w)
     w = "0"  
     result = a_tm_to_halt_tm(M, w)
-    print("Negative instance result:")
-    print_colored_result(result, is_positive=False)
+    print("\nNegative instance result:")
+    print_colored_result(result, w, is_positive=False)
 
 
 # Run mapping reduction test
